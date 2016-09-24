@@ -1,4 +1,9 @@
 local prefix = 'bitdicts/'
+local r = false
+if arg[1] == '-r' then
+  r = true
+  table.remove(arg, 1)
+end
 local bits = arg[1]
 local tips = {}
 
@@ -18,7 +23,7 @@ function readtip(file)
 end
 
 for i = 1, #bits do
-  local file = io.open(prefix .. bits:sub(1, i))
+  local file = io.open(prefix .. bits:sub(r and i or 1, r and -1 or i))
   if file then readtip(file) end
 end
 
