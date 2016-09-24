@@ -1,2 +1,3 @@
 # alphabits
-Heuristically probing the distribution of letters in words
+
+Encoding data in free verse where one letter = one bit
