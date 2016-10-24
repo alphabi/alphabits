@@ -12,12 +12,17 @@ local cipherversion
 local filename
 local startat = 1
 local acase = 'A'
+local low = '0'
+local high = '1'
 
 -- process flags
 while arg[1] and sstr(arg[1],1,1) == '-' do
   for i=2, #arg[1] do
     local flag = sstr(arg[1],i,i)
-    if flag == 'l' then
+    if flag == 'i' then
+      low = '1'
+      high = '0'
+    elseif flag == 'l' then
       acase = 'a'
     elseif flag == 'c' then
       cipherversion = 'c'
@@ -75,7 +80,7 @@ else -- cypherversion = 'm'
 end
 
 local function letterbit(letter)
-  return letter > 'm' and '1' or '0'
+  return letter > 'm' and high or low
 end
 local function alphabi(s)
   return gsub(gsub(lower(s), '%L+',''), '%l', letterbit)
@@ -99,10 +104,11 @@ end
 if startat == 'all' then
   local firstdot = filename:find('.',1,true)
   local prefix = sstr(filename, 1, firstdot)
+  local preinfix = (high == '0' and 'i' or '') .. cipherversion
   local extension = firstdot and filename:sub(firstdot) or ''
   for start = 1, bitsper do
     local outname = strf('%s%sbac%i%s',
-      prefix, cipherversion, start, extension)
+      prefix, preinfix, start, extension)
     local outfile = io.open(outname, 'w')
     writefrom(outfile, start)
   end
