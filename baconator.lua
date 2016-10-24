@@ -40,10 +40,6 @@ cipherversion = cipherversion or 'm'
 
 filename = arg[1]
 
-local firstdot = filename:find('.',1,true)
-local prefix = sstr(filename, 1, firstdot)
-local extension = firstdot and filename:sub(firstdot) or ''
-
 local bitbuffer = {}
 
 local decipher
@@ -101,6 +97,9 @@ local function writefrom(outfile, start)
 end
 
 if startat == 'all' then
+  local firstdot = filename:find('.',1,true)
+  local prefix = sstr(filename, 1, firstdot)
+  local extension = firstdot and filename:sub(firstdot) or ''
   for start = 1, bitsper do
     local outname = strf('%s%sbac%i%s',
       prefix, cipherversion, start, extension)
