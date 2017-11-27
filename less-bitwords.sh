@@ -4,5 +4,8 @@ lesskey -o lrfiles.less - <<EOF
 \kr next-file
 EOF
 
-less -M -k lrfiles.less '++&![^a-z]'$'\n' \
-  $(eval echo bitdicts/$(printf "%*s" ${1-8} | sed 's/ /{0,1}/g'))
+bits=${1-8}
+
+cd bitdicts
+less -M -k ../lrfiles.less '++&![^a-z]'$'\n' \
+  $(perl -e "for (1..(1<<$bits)-1) {printf('%0${bits}b ', \$_)}")
