@@ -16,7 +16,7 @@ Then, to generate word lists based on the naive alphabinarization of the wordlis
 
 ```sh
 mkdir bitdicts
-lua dictgen.lua
+lua init/dictgen.lua
 ```
 
 This will populate the `bitdicts` directory with files by the name of the bits that each word in the wordlist corresponds to in alphabinary (so, for instance, `bitdicts/1000001111011` would contain the words "officiousness" and "salaciousness", assuming they were in your initial wordlist).
